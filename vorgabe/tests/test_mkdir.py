@@ -153,16 +153,16 @@ class Test_Mkdir:
         assert fs.inodes[2].direct_blocks[1] == 6
         retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/test/asdf","UTF-8"))) 
         assert retval == -1
-        #retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/testNest","UTF-8"))) 
-        #assert retval == -1
+        retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/testNest","UTF-8"))) 
+        assert retval == -1
         assert fs.inodes[0].direct_blocks[0] == 1
         assert fs.inodes[1].direct_blocks[0] == 2
         assert fs.inodes[2].direct_blocks[0] == 3
         assert fs.inodes[3].direct_blocks[0] == 4
         assert fs.inodes[1].direct_blocks[1] == 5
         assert fs.inodes[2].direct_blocks[1] == 6
-        #assert fs.inodes[6].direct_blocks[0] == -1
-        #assert retval == -1
+        assert fs.inodes[6].direct_blocks[0] == -1
+        assert retval == -1
         retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/testDirectory","UTF-8"))) # inode num 7 
         assert retval == 0
         assert fs.inodes[0].direct_blocks[0] == 1
@@ -171,7 +171,7 @@ class Test_Mkdir:
         assert fs.inodes[3].direct_blocks[0] == 4
         assert fs.inodes[1].direct_blocks[1] == 5
         assert fs.inodes[2].direct_blocks[1] == 6
-        assert fs.inodes[6].direct_blocks[0] == 7
+        assert fs.inodes[2].direct_blocks[2] == 7
         assert fs.inodes[7].name.decode("utf-8") =="testDirectory"
         retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/testDirectory","UTF-8"))) # inode num 7 
         assert fs.inodes[0].direct_blocks[0] == 1
@@ -180,7 +180,7 @@ class Test_Mkdir:
         assert fs.inodes[3].direct_blocks[0] == 4
         assert fs.inodes[1].direct_blocks[1] == 5
         assert fs.inodes[2].direct_blocks[1] == 6
-        assert fs.inodes[6].direct_blocks[0] == 7
+        assert fs.inodes[2].direct_blocks[2] == 7
         assert fs.inodes[8].name.decode("utf-8") == ""
         assert retval == -1
         retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/testDirectory/testNest","UTF-8"))) # inode num 8
@@ -193,13 +193,13 @@ class Test_Mkdir:
         assert fs.inodes[2].direct_blocks[1] == 6
         assert fs.inodes[7].name.decode("utf-8") =="testDirectory"
         assert fs.inodes[1].name.decode("utf-8") =="testDirectory"
-        assert fs.inodes[6].direct_blocks[0] == 7
+        assert fs.inodes[2].direct_blocks[2] == 7
         assert fs.inodes[8].name.decode("utf-8") =="testNest"
         assert fs.inodes[7].direct_blocks[0] == 8
         retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/testDirectory/testDirectory","UTF-8"))) # inode num 8
         assert retval == 0
-        #retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/testDirectory/testDirectory","UTF-8"))) # inode num 8
-        #assert retval == -1
+        retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/testNest/testDirectory/testDirectory","UTF-8"))) # inode num 8
+        assert retval == -1
         retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/tmp/tmp","UTF-8"))) # inode num 8
         assert retval == 0
         retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/tmp/tmp","UTF-8"))) # inode num 8
