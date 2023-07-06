@@ -204,4 +204,3 @@ class Test_Mkdir:
         assert retval == 0
         retval = libc.fs_mkdir(ctypes.byref(fs), ctypes.c_char_p(bytes("/testDirectory/tmp/tmp","UTF-8"))) # inode num 8
         assert retval == -1
-        
