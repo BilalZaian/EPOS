@@ -216,4 +216,3 @@ class Test_Mkfile:
         for i in range(1,5):
             assert fs.inodes[i].name.decode("utf-8") =="" 
             assert fs.inodes[i].n_type == 3 # meaning it is marked as free block
-
