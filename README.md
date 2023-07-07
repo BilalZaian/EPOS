@@ -9,6 +9,10 @@ Multiple subprograms which may eventually be stitched together to form an operat
 File System tests
 Tests for ext-like file systems with very specific structures
 
+## Notes 
+
+- wrappers.py is changed (trivial: added support for free_blocks to be right when using set_data_block{_with_string})
+
 ## Todos
 -Update this file
 
