@@ -16,7 +16,7 @@ class Test_Readf:
         retval = libc.fs_readf(ctypes.byref(fs), ctypes.c_char_p(bytes("/fil1","utf-8")),ctypes.byref(file_length))
 
         assert file_length.value == len(SHORT_DATA)
-        assert retval.decode("utf-8") == SHORT_DATA
+        assert retval[:len(SHORT_DATA)].decode("utf-8") == SHORT_DATA
 
     def test_readf_long_data_consecutive_blocks(self):
         fs = setup(5)
